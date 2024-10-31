@@ -1,0 +1,9 @@
+#!/bin/bash
+log=~/mysqlbackup.log
+now="$(date +'%d_%m_%Y_%H_%M_%S')"
+filename="gagago_admin_api_customer$now".sql
+cd /home/ubuntu/script/mysql
+mysqldump -u gagagoadminapicustomer -p'4v%LUQ0nR88C9Av2VIw&u4' gagago_admin_api_customer  > "$filename"
+echo "Mysql bakcup done"
+aws s3 cp "$filename" s3://gagagoapp-row-data/mysql/gagago_admin_api_customer/ --region us-east-1
+echo "S3 Uploading done"
